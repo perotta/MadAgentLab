@@ -12,10 +12,10 @@ PREFIX ?= $(DEFAULT_PREFIX)
 .PHONY: build login install
 
 build:
-	docker build -t local/codex .
+	docker build -t madagentlab/codex .
 
 login:
-	docker run --pull=never --rm -it -v codex-home:/home/node local/codex login --device-auth
+	docker run --pull=never --rm -it -v codex-home:/home/node madagentlab/codex login --device-auth
 
 install:
 	@if [ -w "$(PREFIX)" ]; then \

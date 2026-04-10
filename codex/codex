@@ -6,4 +6,4 @@ docker run \
   -it \
   -v codex-home:"/home/node" \
   -v "$PWD":"/agent-workspace"  \
-  local/codex "$@"
+  madagentlab/codex "$@"

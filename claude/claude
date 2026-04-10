@@ -6,4 +6,4 @@ docker run \
   -it \
   -v claude-home:"/home/node/.claude" \
   -v "$PWD":"/agent-workspace" \
-  local/claude "$@"
+  madagentlab/claude "$@"

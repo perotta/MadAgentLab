@@ -12,11 +12,11 @@ PREFIX ?= $(DEFAULT_PREFIX)
 .PHONY: build login install
 
 build:
-	docker build -t local/claude .
+	docker build -t madagentlab/claude .
 
 login:
 	@echo 'Start Claude Code and run /login if it does not prompt for authentication.'
-	docker run --pull=never --rm -it -v claude-home:/home/node/.claude local/claude
+	docker run --pull=never --rm -it -v claude-home:/home/node/.claude madagentlab/claude
 
 install:
 	@if [ -w "$(PREFIX)" ]; then \
