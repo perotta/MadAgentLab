@@ -1,0 +1,5 @@
+approval_policy = "never"
+#since codex 0.116 the old workspace-write sandbox mode uses another cli tool to do sandboxing
+# called bubblerwap (bwrap). We are changing it to danger-full-access because it's in a container
+sandbox_mode = "danger-full-access"
+
