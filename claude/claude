@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+docker run \
+  --pull=never \
+  --rm \
+  -it \
+  -v claude-home:"/home/node/.claude" \
+  -v "$PWD":"/agent-workspace" \
+  local/claude "$@"

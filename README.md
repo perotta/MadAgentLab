@@ -22,9 +22,10 @@ With this project:
 
 ## What It Supports
 
-Right now, this repo supports **Codex only**.
+Right now, this repo supports:
 
-More runners could be added later, but today the focus is one thing: making Codex easy to run in Docker.
+- **Codex**
+- **Claude Code** (currently untested)
 
 ## What You Need
 
@@ -67,6 +68,40 @@ madcodex
 ```
 
 Run `madcodex` from inside the project directory you want mounted into the container. That project becomes the agent workspace.
+
+## How To Use Claude Code
+
+1. Clone this repository.
+2. Change into the `claude` directory.
+3. Build the image:
+
+```bash
+make build
+```
+
+4. Authenticate once:
+
+```bash
+make login
+```
+
+If Claude Code does not immediately prompt for authentication, run `/login`.
+
+5. Install the wrapper:
+
+```bash
+make install
+```
+
+6. Go to the project folder where you want to use Claude Code and run:
+
+```bash
+madclaude
+```
+
+Run `madclaude` from inside the project directory you want mounted into the container. That project becomes the agent workspace.
+
+Claude Code support is included, but it is currently **untested**. The setup mirrors the Codex runner, but it has not been verified end-to-end yet.
 
 ## The Pitch
 
