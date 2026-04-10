@@ -30,6 +30,8 @@ More runners could be added later, but today the focus is one thing: making Code
 
 You need **Docker**.
 
+On macOS, that usually means **Docker Desktop**.
+
 That is the whole trick. No NodeJS needed, just Docker...
 
 ## How To Use Codex
