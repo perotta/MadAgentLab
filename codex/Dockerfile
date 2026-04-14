@@ -31,7 +31,7 @@ ENV LANG=C.UTF-8
 
 RUN git config --system core.pager delta
    
-RUN npm install -g @openai/codex@0.118.0
+RUN npm install -g @openai/codex@0.120.0
 RUN npm install -g prettier@3.6.2
 RUN npm install -g typescript@5.9.3 
 
