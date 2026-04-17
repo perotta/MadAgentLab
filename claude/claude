@@ -4,6 +4,6 @@ docker run \
   --pull=never \
   --rm \
   -it \
-  -v claude-home:"/home/node/.claude" \
+  -v claude-home-node:"/home/node" \
   -v "$PWD":"/agent-workspace" \
   madagentlab/claude "$@"

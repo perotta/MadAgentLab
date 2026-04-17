@@ -25,7 +25,7 @@ With this project:
 Right now, this repo supports:
 
 - **Codex**
-- **Claude Code** (currently untested)
+- **Claude Code**
 
 ## What You Need
 
@@ -79,29 +79,21 @@ Run `madcodex` from inside the project directory you want mounted into the conta
 make build
 ```
 
-4. Authenticate once:
-
-```bash
-make login
-```
-
-If Claude Code does not immediately prompt for authentication, run `/login`.
-
-5. Install the wrapper:
+4. Install the wrapper:
 
 ```bash
 make install
 ```
 
-6. Go to the project folder where you want to use Claude Code and run:
+5. Go to the project folder where you want to use Claude Code and run:
 
 ```bash
 madclaude
 ```
 
-Run `madclaude` from inside the project directory you want mounted into the container. That project becomes the agent workspace.
+On first run, Claude Code will prompt you to authenticate.
 
-Claude Code support is included, but it is currently **untested**. The setup mirrors the Codex runner, but it has not been verified end-to-end yet.
+Run `madclaude` from inside the project directory you want mounted into the container. That project becomes the agent workspace.
 
 ## The Pitch
 

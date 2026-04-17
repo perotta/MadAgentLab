@@ -1,0 +1,28 @@
+# ~/.bashrc - container shell for debugging
+
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
+HISTCONTROL=ignoreboth
+shopt -s histappend
+HISTSIZE=5000
+HISTFILESIZE=10000
+
+shopt -s checkwinsize
+
+# Prompt: user@container:path (git branch)$
+__git_branch() {
+  local b
+  b="$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null)"
+  [ -n "$b" ] && printf ' (%s)' "$b"
+}
+PS1='\[\e[1;32m\]\u@claude\[\e[0m\]:\[\e[1;34m\]\w\[\e[33m\]$(__git_branch)\[\e[0m\]\$ '
+
+alias ls='ls --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias grep='grep --color=auto'
+
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
