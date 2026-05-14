@@ -1,9 +1,53 @@
 #!/usr/bin/env bash
 
-docker run \
+docker_args=(
   --pull=never \
   --rm \
   -it \
   -v codex-home:"/home/node" \
-  -v "$PWD":"/agent-workspace"  \
+  -v "$PWD":"/agent-workspace"
+)
+
+if [[ -n "${TZ:-}" ]]; then
+  docker_args+=(-e TZ="$TZ")
+elif [[ -f /etc/timezone ]]; then
+  docker_args+=(-e TZ="$(tr -d '[:space:]' </etc/timezone)")
+elif [[ -L /etc/localtime ]]; then
+  localtime_target="$(readlink /etc/localtime || true)"
+  case "$localtime_target" in
+    /usr/share/zoneinfo/*) docker_args+=(-e TZ="${localtime_target#/usr/share/zoneinfo/}") ;;
+    /var/db/timezone/zoneinfo/*) docker_args+=(-e TZ="${localtime_target#/var/db/timezone/zoneinfo/}") ;;
+  esac
+fi
+
+if [[ -f /etc/localtime ]]; then
+  docker_args+=(-v /etc/localtime:/etc/localtime:ro)
+fi
+
+if [[ -n "${DISPLAY:-}" ]]; then
+  docker_args+=(-e DISPLAY="$DISPLAY")
+
+  if [[ "$(uname -s)" == "Linux" ]]; then
+    docker_args+=(--network host)
+  fi
+
+  display_host="${DISPLAY%%:*}"
+  if [[ -n "$display_host" && "$display_host" != "$DISPLAY" && "$display_host" != "localhost" ]]; then
+    docker_args+=(--add-host "$display_host:127.0.0.1")
+  fi
+
+  if [[ -d /tmp/.X11-unix ]]; then
+    docker_args+=(-v /tmp/.X11-unix:/tmp/.X11-unix:ro)
+  fi
+
+  host_xauthority="${XAUTHORITY:-$HOME/.Xauthority}"
+  if [[ -f "$host_xauthority" ]]; then
+    docker_args+=(
+      -v "$host_xauthority":/tmp/codex.xauthority:ro
+      -e XAUTHORITY=/tmp/codex.xauthority
+    )
+  fi
+fi
+
+docker run "${docker_args[@]}" \
   madagentlab/codex "$@"

@@ -1,5 +1,5 @@
 UNAME_S := $(shell uname -s)
-INSTALL_NAME := $(or $(word 2,$(MAKECMDGOALS)),madcodex)
+INSTALL_NAME := $(or $(word 2,$(MAKECMDGOALS)),codex)
 
 ifeq ($(UNAME_S),Darwin)
 DEFAULT_PREFIX := $(if $(wildcard /opt/homebrew/bin),/opt/homebrew/bin,/usr/local/bin)

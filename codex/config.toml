@@ -8,5 +8,8 @@ model = "gpt-5.5"
 [tui.model_availability_nux]
 "gpt-5.5" = 2
 
+[projects."/codex-context"]
+trust_level = "trusted"
+
 [notice]
 fast_default_opt_out = true

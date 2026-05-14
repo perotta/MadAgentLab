@@ -2,10 +2,11 @@
 FROM debian:trixie-slim
 
 RUN apt-get update
-RUN apt-get install -y --no-install-recommends \  
+RUN apt-get install -y --no-install-recommends \
    ca-certificates curl wget git gnupg \
    unzip zip xz-utils file \
    ripgrep fd-find jq tree \
+   xauth xclip x11-utils \
    build-essential pkg-config cmake ninja-build \
    python3 python3-pip python3-venv \
    nodejs npm \
@@ -31,7 +32,7 @@ ENV LANG=C.UTF-8
 
 RUN git config --system core.pager delta
    
-RUN npm install -g @openai/codex@0.129.0
+RUN npm install -g @openai/codex@0.130.0
 RUN npm install -g prettier@3.6.2
 RUN npm install -g typescript@5.9.3 
 
@@ -52,4 +53,3 @@ USER node
 WORKDIR /agent-workspace
 
 ENTRYPOINT ["/usr/local/bin/entrypoint"]
-

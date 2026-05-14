@@ -40,7 +40,7 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     > /etc/apt/sources.list.d/github-cli.list \
  && apt-get update && apt-get install -y gh && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g @anthropic-ai/claude-code@2.1.112
+RUN npm install -g @anthropic-ai/claude-code@2.1.141
 RUN npm install -g prettier@3.6.2
 RUN npm install -g typescript@5.9.3
 

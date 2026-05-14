@@ -55,7 +55,7 @@ make build
 make login
 ```
 
-6. Install the wrapper (you can pass an optional name for the executable to replace madcodex):
+6. Install the wrapper (you can pass an optional name for the executable to replace `codex`):
 
 ```bash
 make install
@@ -64,10 +64,28 @@ make install
 7. Go to the project folder where you want to use Codex and run:
 
 ```bash
-madcodex
+codex
 ```
 
-Run `madcodex` from inside the project directory you want mounted into the container. That project becomes the agent workspace.
+Run `codex` from inside the project directory you want mounted into the container. That project becomes the agent workspace.
+
+### Codex X11 Clipboard
+
+The Codex wrapper passes host `DISPLAY`, mounts Xauthority, and uses `--network host` on Linux. This lets Codex inside the container reach SSH-forwarded X11 displays and use clipboard tools for screenshot paste workflows.
+
+After updating the wrapper:
+
+1. Run `make build` from the `codex` directory.
+2. Run `make install` from the `codex` directory.
+3. Start `codex` again from a shell where `echo "$DISPLAY"` works.
+
+Check from inside the Codex shell if needed:
+
+```bash
+echo "$DISPLAY"
+xauth list
+xclip -selection clipboard -o >/dev/null
+```
 
 ## How To Use Claude Code
 
@@ -88,12 +106,24 @@ make install
 5. Go to the project folder where you want to use Claude Code and run:
 
 ```bash
-madclaude
+claude
 ```
 
 On first run, Claude Code will prompt you to authenticate.
 
-Run `madclaude` from inside the project directory you want mounted into the container. That project becomes the agent workspace.
+Run `claude` from inside the project directory you want mounted into the container. That project becomes the agent workspace.
+
+The Claude wrapper mounts projects under a deterministic subfolder of `/agent-workspace`, based on the host folder name and path. This gives each project a distinct path inside the container so Claude Code does not reuse memories or indexes from a different project that happened to mount at the same location.
+
+## Timezone
+
+Both wrappers pass the host timezone into the container. They read `$TZ` first, then `/etc/timezone`, then `/etc/localtime` symlink paths when available. If `/etc/localtime` exists, they also mount it read-only.
+
+After updating a wrapper:
+
+1. Run `make install` from the relevant `codex` or `claude` directory.
+2. Start `codex` or `claude` again.
+3. Check with `date` inside the agent shell.
 
 ## The Pitch
 

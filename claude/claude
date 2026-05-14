@@ -1,9 +1,36 @@
 #!/usr/bin/env bash
 
-docker run \
+project_name="$(basename "$PWD")"
+project_slug="$(printf '%s' "$project_name" | tr -cs '[:alnum:]_.-' '-')"
+project_slug="${project_slug%-}"
+project_slug="${project_slug:-workspace}"
+project_hash="$(printf '%s' "$PWD" | cksum | awk '{print $1}')"
+container_workspace="/agent-workspace/${project_slug}-${project_hash}"
+
+docker_args=(
   --pull=never \
   --rm \
   -it \
   -v claude-home-node:"/home/node" \
-  -v "$PWD":"/agent-workspace" \
+  -v "$PWD":"$container_workspace" \
+  -w "$container_workspace"
+)
+
+if [[ -n "${TZ:-}" ]]; then
+  docker_args+=(-e TZ="$TZ")
+elif [[ -f /etc/timezone ]]; then
+  docker_args+=(-e TZ="$(tr -d '[:space:]' </etc/timezone)")
+elif [[ -L /etc/localtime ]]; then
+  localtime_target="$(readlink /etc/localtime || true)"
+  case "$localtime_target" in
+    /usr/share/zoneinfo/*) docker_args+=(-e TZ="${localtime_target#/usr/share/zoneinfo/}") ;;
+    /var/db/timezone/zoneinfo/*) docker_args+=(-e TZ="${localtime_target#/var/db/timezone/zoneinfo/}") ;;
+  esac
+fi
+
+if [[ -f /etc/localtime ]]; then
+  docker_args+=(-v /etc/localtime:/etc/localtime:ro)
+fi
+
+docker run "${docker_args[@]}" \
   madagentlab/claude "$@"
