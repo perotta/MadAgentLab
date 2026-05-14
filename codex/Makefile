@@ -9,7 +9,7 @@ endif
 
 PREFIX ?= $(DEFAULT_PREFIX)
 
-.PHONY: build login install
+.PHONY: build login install codex
 
 build:
 	docker build -t madagentlab/codex .
