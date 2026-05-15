@@ -32,5 +32,30 @@ if [[ -f /etc/localtime ]]; then
   docker_args+=(-v /etc/localtime:/etc/localtime:ro)
 fi
 
+if [[ -n "${DISPLAY:-}" ]]; then
+  docker_args+=(-e DISPLAY="$DISPLAY")
+
+  if [[ "$(uname -s)" == "Linux" ]]; then
+    docker_args+=(--network host)
+  fi
+
+  display_host="${DISPLAY%%:*}"
+  if [[ -n "$display_host" && "$display_host" != "$DISPLAY" && "$display_host" != "localhost" ]]; then
+    docker_args+=(--add-host "$display_host:127.0.0.1")
+  fi
+
+  if [[ -d /tmp/.X11-unix ]]; then
+    docker_args+=(-v /tmp/.X11-unix:/tmp/.X11-unix:ro)
+  fi
+
+  host_xauthority="${XAUTHORITY:-$HOME/.Xauthority}"
+  if [[ -f "$host_xauthority" ]]; then
+    docker_args+=(
+      -v "$host_xauthority":/tmp/claude.xauthority:ro
+      -e XAUTHORITY=/tmp/claude.xauthority
+    )
+  fi
+fi
+
 docker run "${docker_args[@]}" \
   madagentlab/claude "$@"

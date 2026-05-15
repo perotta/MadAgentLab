@@ -5,6 +5,7 @@ RUN apt-get install -y --no-install-recommends \
    ca-certificates curl wget git gnupg \
    unzip zip xz-utils file \
    ripgrep fd-find jq tree \
+   xauth xclip x11-utils \
    build-essential pkg-config cmake ninja-build \
    python3 python3-pip python3-venv \
    nodejs npm \

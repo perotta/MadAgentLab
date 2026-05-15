@@ -8,7 +8,7 @@ model = "gpt-5.5"
 [tui.model_availability_nux]
 "gpt-5.5" = 2
 
-[projects."/codex-context"]
+[projects."/agent-workspace"]
 trust_level = "trusted"
 
 [notice]
