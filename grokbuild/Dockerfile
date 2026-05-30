@@ -1,6 +1,8 @@
 FROM debian:trixie-slim
 
-ARG GROK_VERSION=""
+# Latest stable Grok Build CLI as of 2026-05-29 (https://x.ai/build/changelog)
+# Override at build time with: --build-arg GROK_VERSION=0.2.11 (or leave empty to fetch latest on build)
+ARG GROK_VERSION="0.2.11"
 ARG GROK_CHANNEL=stable
 
 ENV GROK_CHANNEL=${GROK_CHANNEL}
