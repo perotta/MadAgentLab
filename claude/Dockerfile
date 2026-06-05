@@ -41,11 +41,11 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
     > /etc/apt/sources.list.d/github-cli.list \
  && apt-get update && apt-get install -y gh && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g @anthropic-ai/claude-code@2.1.158
-RUN npm install -g prettier@3.6.2
-RUN npm install -g typescript@5.9.3
+RUN npm install -g @anthropic-ai/claude-code@2.1.162
+RUN npm install -g prettier@3.8.3
+RUN npm install -g typescript@6.0.3
 
-RUN curl -L https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.90.0/php-cs-fixer.phar \
+RUN curl -L https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.95.4/php-cs-fixer.phar \
     -o /usr/local/bin/php-cs-fixer \
  && chmod +x /usr/local/bin/php-cs-fixer
 

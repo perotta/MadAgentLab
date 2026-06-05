@@ -1,8 +1,8 @@
 FROM debian:trixie-slim
 
-# Latest stable Grok Build CLI as of 2026-05-29 (https://x.ai/build/changelog)
-# Override at build time with: --build-arg GROK_VERSION=0.2.11 (or leave empty to fetch latest on build)
-ARG GROK_VERSION="0.2.11"
+# Latest stable Grok Build CLI as of 2026-06-04 (https://x.ai/build/changelog)
+# Override at build time with: --build-arg GROK_VERSION=0.2.22 (or leave empty to fetch latest on build)
+ARG GROK_VERSION="0.2.22"
 ARG GROK_CHANNEL=stable
 
 ENV GROK_CHANNEL=${GROK_CHANNEL}
@@ -76,10 +76,10 @@ RUN if [ -n "$GROK_VERSION" ]; then \
         curl -fsSL https://x.ai/cli/install.sh | HOME=/usr/local/share/grokbuild bash; \
     fi
 
-RUN npm install -g prettier@3.6.2
-RUN npm install -g typescript@5.9.3
+RUN npm install -g prettier@3.8.3
+RUN npm install -g typescript@6.0.3
 
-RUN curl -L https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.90.0/php-cs-fixer.phar \
+RUN curl -L https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.95.4/php-cs-fixer.phar \
     -o /usr/local/bin/php-cs-fixer \
     && chmod +x /usr/local/bin/php-cs-fixer
 

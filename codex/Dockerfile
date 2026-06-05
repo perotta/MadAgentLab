@@ -33,11 +33,11 @@ ENV LANG=C.UTF-8
 
 RUN git config --system core.pager delta
    
-RUN npm install -g @openai/codex@0.135.0
-RUN npm install -g prettier@3.6.2
-RUN npm install -g typescript@5.9.3 
+RUN npm install -g @openai/codex@0.137.0
+RUN npm install -g prettier@3.8.3
+RUN npm install -g typescript@6.0.3 
 
-RUN curl -L https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.90.0/php-cs-fixer.phar \
+RUN curl -L https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.95.4/php-cs-fixer.phar \
     -o /usr/local/bin/php-cs-fixer \
  && chmod +x /usr/local/bin/php-cs-fixer
 
