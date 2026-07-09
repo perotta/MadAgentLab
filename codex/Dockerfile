@@ -41,6 +41,12 @@ RUN curl -L https://github.com/PHP-CS-Fixer/PHP-CS-Fixer/releases/download/v3.95
     -o /usr/local/bin/php-cs-fixer \
  && chmod +x /usr/local/bin/php-cs-fixer
 
+RUN mkdir -p /usr/local/share/codex-defaults/skills \
+ && git clone --depth 1 --filter=blob:none --sparse https://github.com/pbakaus/impeccable.git /tmp/impeccable \
+ && cd /tmp/impeccable \
+ && git sparse-checkout set .agents/skills/impeccable \
+ && cp -R .agents/skills/impeccable /usr/local/share/codex-defaults/skills/ \
+ && rm -rf /tmp/impeccable
 
 RUN mkdir -p /agent-workspace
 RUN chown -R node:node /agent-workspace
