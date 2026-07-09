@@ -1,8 +1,8 @@
 FROM debian:trixie-slim
 
-# Latest stable Grok Build CLI as of 2026-06-04 (https://x.ai/build/changelog)
+# Latest stable Grok Build CLI as of 2026-07-08 (https://x.ai/build/changelog)
 # Override at build time with: --build-arg GROK_VERSION=0.2.22 (or leave empty to fetch latest on build)
-ARG GROK_VERSION="0.2.22"
+ARG GROK_VERSION="0.2.92"
 ARG GROK_CHANNEL=stable
 
 ENV GROK_CHANNEL=${GROK_CHANNEL}
@@ -20,6 +20,7 @@ RUN apt-get update \
         zip \
         xz-utils \
         file \
+        imagemagick \
         ripgrep \
         fd-find \
         jq \
@@ -50,6 +51,7 @@ RUN apt-get update \
         libtool \
         php \
         golang \
+        poppler-utils \
         perltidy \
         bubblewrap \
         vim-tiny \
